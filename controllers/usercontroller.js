@@ -1,40 +1,69 @@
 
 class UserController {
-  constructor() {
-    this.users = [];
-  }
+    constructor() {
+        this.users = [];
+    }
 
-  login(username, password) {
-    // Handle login functionality
-  }
+    login(username, password) {
+        // Handle login functionality
+    }
 
-  getUsers(filter) {
-    // Retrieve the list of available users and apply the filter
-  }
+    getUsers(filter) {
+        // Retrieve the list of available users and apply the filter
+    }
 
-  addUser(userDetails) {
-    // Add a new user to the system
-  }
+    validateUserDetails(userDetails) {
+        // Validate the email and name of the user
+    }
 
-  validateUserDetails(userDetails) {
-    // Validate the email and name of the user
-  }
+    addContactNumber(userId, contactNumber, contactName) {
+        // Add a contact number to a user
+    }
 
-  addContactNumber(userId, contactNumber, contactName) {
-    // Add a contact number to a user
-  }
+    addHobby(userId, hobby) {
+        const user = this.users.find(user => user.userId === userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        
+        user.hobbies.push(hobby);
+    }
 
-  addHobby(userId, hobby) {
-    // Add a hobby to a user
-  }
+    saveChanges(userId, userDetails) {
+        const user = this.users.find(user => user.userId === userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        
+        if (!this.validateUserDetails(userDetails)) {
+            throw new Error('Invalid user details');
+        }
+        
+        user.email = userDetails.email;
+        user.name = userDetails.name;
+        
+        // Save the changes made to a user (create or update)
+    }
 
-  saveChanges(userId, userDetails) {
-    // Save the changes made to a user (create or update)
-  }
+    allowLogin(userId) {
+        // Check if a user is allowed to login to the system
+    }
 
-  allowLogin(userId) {
-    // Check if a user is allowed to login to the system
-  }
+    addUser(userDetails) {
+        const { email, name } = userDetails;
+        if (!this.validateUserDetails(userDetails)) {
+            throw new Error('Invalid user details');
+        }
+        const userId = generateUniqueId();
+        const newUser = {
+            userId,
+            email,
+            name,
+            contactNumbers: [],
+            hobbies: []
+        };
+        this.users.push(newUser);
+    }
 }
 
 module.exports = UserController;
