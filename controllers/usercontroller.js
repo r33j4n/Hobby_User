@@ -8,6 +8,10 @@ class UserController {
         // Handle login functionality
     }
 
+    getAllUsers() {
+        return this.users;
+    }
+
     getUsers(filter) {
         // Retrieve the list of available users and apply the filter
     }
